@@ -98,7 +98,7 @@ model_off_language_MLP_lg.compile(optimizer='adam', loss='mean_squared_error')
 from time import time
 
 start = time()
-history = model_off_language_MLP_lg.fit(features_lg, labels_hate, epochs=10, batch_size=64, verbose=1)
+history = model_off_language_MLP_lg.fit(features_lg, labels_hate, epochs=20, batch_size=64, verbose=1)
 end = time()
 
 model_off_language_MLP_lg.save(cwd + '/models/offensive_language_model_lg_word_embed.h5')
