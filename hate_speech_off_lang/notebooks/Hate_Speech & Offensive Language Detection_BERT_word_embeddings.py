@@ -73,8 +73,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 model_hate_speech_MLP_lg = Sequential()
-model_hate_speech_MLP_lg.add(Dense(300, input_dim=300, kernel_initializer='normal', activation='relu'))
-model_hate_speech_MLP_lg.add(Dense(100, kernel_initializer='normal', activation='relu'))
+model_hate_speech_MLP_lg.add(Dense(768, input_dim=768, kernel_initializer='normal', activation='relu'))
+model_hate_speech_MLP_lg.add(Dense(300, kernel_initializer='normal', activation='relu'))
 model_hate_speech_MLP_lg.add(Dense(50, kernel_initializer='normal', activation='relu'))
 model_hate_speech_MLP_lg.add(Dense(1, kernel_initializer='normal'))
 print(model_hate_speech_MLP_lg.summary())
@@ -83,7 +83,7 @@ model_hate_speech_MLP_lg.compile(optimizer='adam', loss='mean_squared_error')
 from time import time
 
 start = time()
-history = model_hate_speech_MLP_lg.fit(features_lg, labels_hate, epochs=100, batch_size=64, verbose=1)
+history_hate = model_hate_speech_MLP_lg.fit(features_lg, labels_hate, epochs=100, batch_size=64, verbose=1)
 end = time()
 
 model_hate_speech_MLP_lg.save(cwd + '/models/hate_speech_model_BERT.h5')
@@ -97,8 +97,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 model_off_language_MLP_lg = Sequential()
-model_off_language_MLP_lg.add(Dense(300, input_dim=300, kernel_initializer='normal', activation='relu'))
-model_off_language_MLP_lg.add(Dense(100, kernel_initializer='normal', activation='relu'))
+model_off_language_MLP_lg.add(Dense(768, input_dim=768, kernel_initializer='normal', activation='relu'))
+model_off_language_MLP_lg.add(Dense(300, kernel_initializer='normal', activation='relu'))
 model_off_language_MLP_lg.add(Dense(50, kernel_initializer='normal', activation='relu'))
 model_off_language_MLP_lg.add(Dense(1, kernel_initializer='normal'))
 
@@ -107,7 +107,7 @@ model_off_language_MLP_lg.compile(optimizer='adam', loss='mean_squared_error')
 from time import time
 
 start = time()
-history = model_off_language_MLP_lg.fit(features_lg, labels_hate, epochs=100, batch_size=64, verbose=1)
+history_off = model_off_language_MLP_lg.fit(features_lg, labels_off, epochs=100, batch_size=64, verbose=1)
 end = time()
 
 model_off_language_MLP_lg.save(cwd + '/models/offensive_language_model_BERT.h5')
