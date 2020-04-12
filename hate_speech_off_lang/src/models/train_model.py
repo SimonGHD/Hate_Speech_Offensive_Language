@@ -10,7 +10,7 @@ print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('
 sess = tf.Session()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
-## LSTM für Hate-Speech
+## MLP
 
 from keras.models import Sequential
 from keras.layers import Dense
