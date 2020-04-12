@@ -15,6 +15,11 @@ def main(input_filepath, output_filepath):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+    import pandas as pd
+    train = pd.read_csv(input_filepath, sep='\t', encoding='latin_1', header=None)
+    train = train.dropna()
+    train.columns = ['hate_speech', 'off_lang', 'text']
+    train.to_csv(output_filepath, sep='\t', encoding='latin_1')
 
 
 if __name__ == '__main__':

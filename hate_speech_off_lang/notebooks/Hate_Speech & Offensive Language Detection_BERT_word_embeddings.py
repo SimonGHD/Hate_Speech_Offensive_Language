@@ -20,9 +20,19 @@ train.columns = ['hate_speech', 'off_lang', 'text']
 
 # Word-Embeddings aus SpaCy - kleines Model
 
-import en_core_web_lg
+import spacy
+import torch
 
-nlp = en_core_web_lg.load()
+is_using_gpu = spacy.prefer_gpu()
+if is_using_gpu:
+    torch.set_default_tensor_type("torch.cuda.FloatTensor")
+
+try:
+    nlp = spacy.load("en_trf_bertbaseuncased_lg")
+except:
+    import en_trf_bertbaseuncased_lg
+
+    nlp = en_trf_bertbaseuncased_lg.load()
 
 from tqdm import tqdm
 
@@ -54,9 +64,11 @@ print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('
 # let's see what compute devices we have available, hopefully a GPU
 sess = tf.Session()
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ## MOdel für Hate-Speech
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
+
 from keras.models import Sequential
 from keras.layers import Dense
 
@@ -74,7 +86,7 @@ start = time()
 history = model_hate_speech_MLP_lg.fit(features_lg, labels_hate, epochs=100, batch_size=64, verbose=1)
 end = time()
 
-model_hate_speech_MLP_lg.save(cwd + '/models/hate_speech_model_lg_word_embed.h5')
+model_hate_speech_MLP_lg.save(cwd + '/models/hate_speech_model_BERT.h5')
 
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ## Model für Off_Language
@@ -98,7 +110,7 @@ start = time()
 history = model_off_language_MLP_lg.fit(features_lg, labels_hate, epochs=100, batch_size=64, verbose=1)
 end = time()
 
-model_off_language_MLP_lg.save(cwd + '/models/offensive_language_model_lg_word_embed.h5')
+model_off_language_MLP_lg.save(cwd + '/models/offensive_language_model_BERT.h5')
 
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 # Test auf Goldstandard
