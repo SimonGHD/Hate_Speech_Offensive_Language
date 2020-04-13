@@ -1,10 +1,8 @@
-# Word-Embeddings aus SpaCy - kleines Model
 import en_core_web_lg
 
 nlp = en_core_web_lg.load()
 import numpy as np
 from tqdm import tqdm
-
 
 def make_features(train):
     features = []
@@ -19,5 +17,6 @@ def make_features(train):
     features_lg = np.array(features)
     labels_off = np.array(labels_off)
     labels_hate = np.array(labels_hate)
+
     return features_lg, labels_off, labels_hate
 
