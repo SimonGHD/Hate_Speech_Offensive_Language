@@ -1,10 +1,9 @@
-import en_core_web_lg
+def make_features(train, nlp_model):
+    import numpy as np
+    from tqdm import tqdm
 
-nlp = en_core_web_lg.load()
-import numpy as np
-from tqdm import tqdm
+    nlp = nlp_model
 
-def make_features(train):
     features = []
     labels_off = []
     labels_hate = []
