@@ -23,6 +23,7 @@ train.columns = ['hate_speech', 'off_lang', 'text']
 import spacy
 import torch
 
+
 is_using_gpu = spacy.prefer_gpu()
 if is_using_gpu:
     torch.set_default_tensor_type("torch.cuda.FloatTensor")
@@ -40,7 +41,7 @@ features = []
 labels_off = []
 labels_hate = []
 
-for i in tqdm(range(0, len(train))):
+for i in tqdm(range(0, len(train[:300]))):
     features.append(nlp(train.text[i]).vector)
     labels_off.append(train.off_lang[i])
     labels_hate.append(train.hate_speech[i])
@@ -59,18 +60,18 @@ import tensorflow as tf
 
 # tf.logging.set_verbosity(tf.logging.ERROR)
 print(tf.__version__)
-print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+# print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 # let's see what compute devices we have available, hopefully a GPU
-sess = tf.Session()
-print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+# sess = tf.Session()
+#print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ## MOdel für Hate-Speech
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-from keras.models import Sequential
-from keras.layers import Dense
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
 model_hate_speech_MLP_lg = Sequential()
 model_hate_speech_MLP_lg.add(Dense(768, input_dim=768, kernel_initializer='normal', activation='relu'))
@@ -93,8 +94,6 @@ model_hate_speech_MLP_lg.save(cwd + '/models/hate_speech_model_BERT.h5')
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
 
-from keras.models import Sequential
-from keras.layers import Dense
 
 model_off_language_MLP_lg = Sequential()
 model_off_language_MLP_lg.add(Dense(768, input_dim=768, kernel_initializer='normal', activation='relu'))
