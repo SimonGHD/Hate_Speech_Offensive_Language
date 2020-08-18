@@ -17,7 +17,7 @@ cwd = os.path.dirname(cwd_nb)
 
 test = pd.read_csv(cwd + '/data/raw/test.tsv', sep='\t', encoding='latin_1', header=None)
 
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 # load model
 model_off_language_MLP_lg = load_model(cwd + '/models/offensive_language_model_lg_word_embed.h5')
