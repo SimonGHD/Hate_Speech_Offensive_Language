@@ -65,8 +65,8 @@ model.tokenizer = AutoTokenizer("textattack/bert-base-uncased-ag-news")
 # Create the goal function using the model
 from textattack.goal_functions import UntargetedClassification
 
-# goal_function = UntargetedClassification(model)
-goal_function = UntargetedClassification(model_off_language_MLP_lg)
+goal_function = UntargetedClassification(model)
+# goal_function = UntargetedClassification(model_off_language_MLP_lg)
 
 # Import the dataset
 from textattack.datasets import HuggingFaceNlpDataset
@@ -93,8 +93,8 @@ print(attack)
 from textattack.loggers import CSVLogger  # tracks a dataframe for us.
 from textattack.attack_results import SuccessfulAttackResult
 
-# results_iterable = attack.attack_dataset(dataset)
-results_iterable = attack.attack_dataset(test)
+results_iterable = attack.attack_dataset(dataset)
+# results_iterable = attack.attack_dataset(test)
 
 logger = CSVLogger(color_method='html')
 
@@ -112,4 +112,34 @@ pd.options.display.max_colwidth = 480  # increase colum width so we can actually
 
 from IPython.core.display import display, HTML
 
+print(display(HTML(logger.df[['original_text', 'perturbed_text']].to_html(escape=False))))
+
+import docx
+
+mydoc = docx.Document()
+mydoc.add_paragraph(logger.df[['original_text', 'perturbed_text']])
+mydoc.save(cwd + '/data/Beispiel_Original.docx')
+
+# Attacking Custom Samples
+
+# For AG News, labels are 0: World, 1: Sports, 2: Business, 3: Sci/Tech
+
+custom_dataset = [
+    ('Malaria deaths in Africa fall by 5% from last year', 0),
+    ('Washington Nationals defeat the Houston Astros to win the World Series', 1),
+    ('Exxon Mobil hires a new CEO', 2),
+    ('Microsoft invests $1 billion in OpenAI', 3),
+]
+
+results_iterable = attack.attack_dataset(custom_dataset)
+
+logger = CSVLogger(color_method='html')
+
+for result in results_iterable:
+    logger.log_attack_result(result)
+
 display(HTML(logger.df[['original_text', 'perturbed_text']].to_html(escape=False)))
+
+mydoc = docx.Document()
+mydoc.add_paragraph(logger.df[['original_text', 'perturbed_text']])
+mydoc.save(cwd + '/data/Beispiel_extra.docx')
