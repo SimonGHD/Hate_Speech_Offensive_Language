@@ -20,6 +20,7 @@ train.columns = ['hate_speech', 'off_lang', 'text']
 
 # Word-Embeddings aus SpaCy - kleines Model
 
+
 import spacy
 import torch
 
@@ -32,7 +33,6 @@ try:
     nlp = spacy.load("en_trf_bertbaseuncased_lg")
 except:
     import en_trf_bertbaseuncased_lg
-
     nlp = en_trf_bertbaseuncased_lg.load()
 
 from tqdm import tqdm
@@ -65,6 +65,14 @@ print(tf.__version__)
 # let's see what compute devices we have available, hopefully a GPU
 # sess = tf.Session()
 #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+
+import pickle
+
+# saving
+with open('tokenizer_en_trf_bertbaseuncased_lg.pickle', 'wb') as handle:
+    pickle.dump(en_trf_bertbaseuncased_lg, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
 
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ## MOdel für Hate-Speech

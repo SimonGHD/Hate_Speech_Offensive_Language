@@ -49,13 +49,10 @@ descartes==1.1.0
 dice-ml==0.2
 dill==0.3.0
 discretize==0.4.10
-dlime-experiments==0.1.1.36
 docutils==0.15.2
 ds-lime==0.1.1.27
 dtreeviz==0.6
 eli5==0.10.1
-en-core-web-lg==2.2.5
-en-core-web-sm==2.2.0
 entrypoints==0.3
 enum-compat==0.0.3
 ephem==3.7.7.0
@@ -114,9 +111,6 @@ MarkupSafe==1.1.1
 matplotlib==3.1.1
 mccabe==0.6.1
 missingno==0.4.2
-mistune==0.8.4
-mizani==0.6.0
-mkl-fft==1.0.14
 mkl-random==1.0.2
 mkl-service==2.0.2
 mlr==0.1.0

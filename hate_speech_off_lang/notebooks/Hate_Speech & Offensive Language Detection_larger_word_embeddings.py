@@ -57,8 +57,8 @@ print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ## MOdel für Hate-Speech
 ###### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-from keras.models import Sequential
-from keras.layers import Dense
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
 model_hate_speech_MLP_lg = Sequential()
 model_hate_speech_MLP_lg.add(Dense(300, input_dim=300, kernel_initializer='normal', activation='relu'))
