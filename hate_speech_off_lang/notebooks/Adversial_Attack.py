@@ -199,7 +199,7 @@ print('Model loaded successfully')
 
 from textattack.goal_functions import TargetedClassification
 
-goal_function = TargetedClassification(model_wrapper, target_class=3)
+goal_function = TargetedClassification(model_wrapper, target_class=1)
 # goal_function =  TargetedClassification(model_off_language_MLP_lg)
 
 
